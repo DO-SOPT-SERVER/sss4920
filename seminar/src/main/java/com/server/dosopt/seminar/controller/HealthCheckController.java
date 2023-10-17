@@ -1,6 +1,7 @@
 package com.server.dosopt.seminar.controller;
 
 import com.server.dosopt.seminar.common.dto.CommonApiResponse;
+import com.server.dosopt.seminar.dto.response.HealthCheckResponse;
 import com.server.dosopt.seminar.exception.CommonSuccess;
 import com.server.dosopt.seminar.exception.CommonError;
 import com.server.dosopt.seminar.sample.Person;
@@ -43,13 +44,8 @@ public class HealthCheckController {
     }
 
     @GetMapping("/v5")
-    public CommonApiResponse<Boolean> healthCheckV5(){
-        try {
+    public CommonApiResponse<HealthCheckResponse> healthCheckV5(){
             // 어떤 작업을 수행하는 코드
-            return CommonApiResponse.success(CommonSuccess.HEALTH_CHECK_SUCCESS, true);
-        } catch (Exception e) {
-            // 예외가 발생하면 false를 반환
-            return CommonApiResponse.error(CommonError.HEALTH_CHECK_ERROR, false);
-        }
+            return CommonApiResponse.success(CommonSuccess.HEALTH_CHECK_SUCCESS,HealthCheckResponse.of(true));
     }
 }

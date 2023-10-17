@@ -1,8 +1,6 @@
 package com.server.dosopt.seminar.common.dto;
 
 import com.server.dosopt.seminar.exception.CommonSuccess;
-import com.server.dosopt.seminar.exception.CommonError;
-
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,24 +13,15 @@ import lombok.RequiredArgsConstructor;
 public class CommonApiResponse<T> {
 
 	private final int code;
-	private final String status;
-	private T success;
-
-
+	private final String message;
+	private T data;
 
 	public static CommonApiResponse success(CommonSuccess success) {
-		return new CommonApiResponse<>(success.getHttpStatusCode(), success.getStatus());
+		return new CommonApiResponse<>(success.getHttpStatusCode(), success.getMessage());
 	}
 
-	public static <T> CommonApiResponse<T> success(CommonSuccess s, T success) {
-		return new CommonApiResponse<T>(s.getHttpStatusCode(), s.getStatus(), success);
+	public static <T> CommonApiResponse<T> success(CommonSuccess success, T data) {
+		return new CommonApiResponse<T>(success.getHttpStatusCode(), success.getMessage(), data);
 	}
 
-	public static CommonApiResponse error(CommonError error) {
-		return new CommonApiResponse<>(error.getHttpStatusCode(), error.getStatus());
-	}
-
-	public static <T> CommonApiResponse<T> error(CommonError error, T success) {
-		return new CommonApiResponse<>(error.getHttpStatusCode(), error.getStatus(), success);
-	}
 }
