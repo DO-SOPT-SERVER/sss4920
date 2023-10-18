@@ -46,6 +46,8 @@ public class HealthCheckController {
     @GetMapping("/v5")
     public CommonApiResponse<HealthCheckResponse> healthCheckV5(){
             // 어떤 작업을 수행하는 코드
-            return CommonApiResponse.success(CommonSuccess.HEALTH_CHECK_SUCCESS,HealthCheckResponse.of(true));
+        return CommonApiResponse.success(CommonSuccess.HEALTH_CHECK_SUCCESS, HealthCheckResponse.of(true));
+            //처음에 try catch문 쓰려다보니 생각해보니까 나중에 exception은 다같이 서비스단에서 처리하는게 좋을 것 같음.
+            //그리고 500 에러를 커스텀 에러에 넣고 생각을 해보니.. 그냥 healthcheck라서 서버가 죽었으면 생각해보니 커스텀에러로 처리할 이유가 없음..ㅎ
     }
 }
