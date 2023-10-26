@@ -61,9 +61,7 @@ public class MemberService {
 
 	//private method로 중복 코드 빼주기
 	private Member findMemberById(Long memberId) {
-		Member member = memberJpaRepository.findById(memberId).orElseThrow(
-			() -> new NotFoundException(Error.USER_NOT_FOUND, Error.USER_NOT_FOUND.getMessage())
-		);
+		Member member = memberJpaRepository.findByIdOrThrow(memberId);
 		return member;
 	}
 }
