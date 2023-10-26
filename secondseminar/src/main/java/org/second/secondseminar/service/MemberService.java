@@ -26,15 +26,8 @@ public class MemberService {
 	private final MemberJpaRepository memberJpaRepository;
 
 	public MemberResponse getById(Long memberId) {
-		Member member = memberJpaRepository.findById(memberId).orElseThrow(
-			()->new NotFoundException(Error.USER_NOT_FOUND, Error.USER_NOT_FOUND.getMessage())
-		);
-		return MemberResponse.of(member);
+		return MemberResponse.of(findMemberById(memberId));
 	}
-
-	// public MemberResponse getByIdV2(Long memberId) {
-	// 	return MemberResponse.of(memberJpaRepository.findByIdOrThrow(memberId));
-	// }
 
 	public List<MemberResponse> getMembers() {
 		return memberJpaRepository.findAll()
@@ -45,29 +38,32 @@ public class MemberService {
 
 	@Transactional
 	public MemberResponse create(MemberCreateRequest request) {
-		Member member = memberJpaRepository.save(Member.builder()
+		return MemberResponse.of(memberJpaRepository.save(Member.builder()
 			.name(request.name())
 			.nickname(request.nickname())
 			.age(request.age())
 			.sopt(request.sopt())
-			.build());
-		return MemberResponse.of(member);
+			.build()));
 	}
+
 	//
 	@Transactional
 	public void updateSOPT(Long memberId, MemberProfileUpdateRequest request) {
-		Member member = memberJpaRepository.findByIdOrThrow(memberId);
+		Member member = findMemberById(memberId);
 		member.setSopt(new SOPT(request.generation(), request.part()));
 	}
 
 	@Transactional
 	public MemberDeleteResponse deleteMember(Long memberId) {
-		Member member = memberJpaRepository.findByIdOrThrow(memberId);
-		memberJpaRepository.delete(member);
+		memberJpaRepository.delete(findMemberById(memberId));
 		return MemberDeleteResponse.of(memberId);
 	}
-	// private Member findById(Long memberId) {
-	// 	return memberJpaRepository.findById(memberId).orElseThrow(
-	// 		() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
-	// }
+
+	//private method로 중복 코드 빼주기
+	private Member findMemberById(Long memberId) {
+		Member member = memberJpaRepository.findById(memberId).orElseThrow(
+			() -> new NotFoundException(Error.USER_NOT_FOUND, Error.USER_NOT_FOUND.getMessage())
+		);
+		return member;
+	}
 }
