@@ -1,7 +1,7 @@
 package org.second.secondseminar.common;
 
-import org.second.secondseminar.exception.Success;
 import org.second.secondseminar.exception.Error;
+import org.second.secondseminar.exception.Success;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class ApiResponse<T> {
 		return new ApiResponse<>(error.getErrorCode(), error.getMessage());
 	}
 
-	public static ApiResponse success(Error error, String message){
+	public static ApiResponse error(Error error, String message){
 		return new ApiResponse<>(error.getErrorCode(), message);
 	}
 }

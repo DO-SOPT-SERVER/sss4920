@@ -14,14 +14,22 @@ public enum Success {
 	/**
 	 * 201 CREATED
 	 */
-	CREATE_SUCCESS(HttpStatus.CREATED, "유저 생성 완-벽"),
+	CREATE_MEMBER_SUCCESS(HttpStatus.CREATED, "유저 생성 완-벽"),
 
 	/**
 	 * 200 OK
 	 */
-	UPDATE_SUCCESS(HttpStatus.OK, "유저 수정 성공~"),
+	GET_MEMBER_SUCCESS(HttpStatus.OK, "유저 조회 성공~"),
+	GET_MEMBERS_SUCCESS(HttpStatus.OK, "유저 전체조회 성공~"),
 
-	DELETE_SUCCESS(HttpStatus.OK, "유저 삭제 성공~")
+	DELETE_MEMBER_SUCCESS(HttpStatus.OK, "유저 삭제 성공~"),
+
+	/**
+	 * 204 NO_CONTENT
+	 */
+	UPDATE_MEMBER_SUCCESS(HttpStatus.NO_CONTENT, "유저 수정 성공~"),
+
+
 
 	;
 
